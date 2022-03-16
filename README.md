@@ -46,7 +46,7 @@ contacts.set('Steve', 'This will get overwritten with a new address')
 contacts.set('Steve', {phone: "0456 987321", address: "321 A Tougher Road"})
 ```
 
-And because keys muct be unique, it is common to using a hashing algorithm (or a node package, such as [uuid](https://github.com/uuidjs/uuid)), to generate unique keys for you:
+And because keys must be unique, it is common to using a hashing algorithm (or a node package, such as [uuid](https://github.com/uuidjs/uuid)), to generate unique keys for you:
 
 ```js
 import { v4 as uuidv4 } from 'uuid';
@@ -82,7 +82,7 @@ Figure 1, below, shows single and double linked lists:
 
 _Figure 1: Linked lists_
 
-Below, we'll create a very simple, single linked list. We'll see a more complex examples of a single linked list when looking at stacks, below. We'll look at double linked lists when discussing queues.
+Below, we'll create a very simple, single linked list. We'll see more complex examples of a single linked list when looking at stacks, below. We'll look at double linked lists when discussing queues.
 
 With a linked list, a _node_ stores both data and a reference to more data:
 
@@ -136,7 +136,7 @@ Conceptually, that's all there is to linked lists! However, linked lists act as 
 
 ## Stacks
 
-A stack is a _last in, lirst out_ (LIFO) data type that behaves similarly to a stack of plates (or the [The Tower of Hanoi](https://www.mathsisfun.com/games/towerofhanoi.html)), because, as shown in Figure 2, adding or removing is only possible at the top.
+A stack is a _last in, first out_ (LIFO) data type that behaves similarly to a stack of plates (or the [The Tower of Hanoi](https://www.mathsisfun.com/games/towerofhanoi.html)), because, as shown in Figure 2, adding or removing is only possible at the top.
 
 ![](assets/stack.png)
 
@@ -147,7 +147,7 @@ A stack has two main operations:
 1. `push`, which adds an element to the top of the stack
 2. `pop`, which removes the most recently added element from the top of the stack
 
-A singly linked list is an ideal data structure to implement a stack. When using a single linked list, the _head_ of the list functions as the _top_, which contains a reference to the _next_ element (if there is one), and `push` and `pop` modify that head. Consequently, stacks are super efficient because most operations are O(1) in time.
+A singly linked list is an ideal data structure to implement a stack. When using a single linked list, the _head_ of the list functions as the _top_, which contains a reference to the _next_ element (if there is one), and `push` and `pop` modify the top of the stack alone. Consequently, stacks are super efficient because most operations are O(1) in time.
 
 When you use your computer, you are _probably_ using stacks all the time!
 
@@ -171,14 +171,16 @@ A queue has two main operations:
 
 A doubly linked list has O(1) insertion and deletion at both ends, so it is a natural choice for queues.
 
+Below, you get to program stacks and queues.
+
 ## Exercise
 
-1. Fork this repository and clone the fork to your machine.
+1. Fork this repository and clone the fork to your machine
 2. Run `npm ci` to install project dependencies
-3. Implement each of the empty functions inside the files in the [src](./src) directory
+3. Implement each of the empty functions inside the [src/stack.mjs](src/stack.mjs) and [src/queue.mjs](src/queue.mjs) files
     - Add a commment to each function implementation that describes:
         1. Conceptually, how the algorithm works. You _may_ wish to write this _first_, then try and implement your conceptual understanding
-4. Run `npm run test` to test your code.
+4. Run `npm run test` to test your code
 
 ## Extension - Binary Search Trees
 
