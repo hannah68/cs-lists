@@ -57,7 +57,9 @@ contacts.get(myId) // {phone: "0123 456789", address: "123 Easy Street"}
 
 ### Hash Tables vs Arrays
 
-Hash tables tend to be faster when looking up items because you just index into the hash table with a key, whereas, with an array, you have to loop over everything. Inserting an item is also generally faster in Hash tables. So is deletion, since a hash table is just an unordered list, so unlike arrays, you never need to shift any of the elements. In general, we have the following time complexity:
+Hash tables tend to be faster when looking up items because you just index into the hash table with a key, whereas, with an array, you have to loop over everything. Inserting an item is also generally faster in hash tables, as is deletion, since a hash table is just an unordered list, so unlike arrays, you never need to shift any of the elements to accomodate the inserted/deleted item.
+
+In general, we have the following time complexity for hash tables and arrays:
 
 | Hash Tables | Arrays      |
 | ------------| ------------|
@@ -68,11 +70,11 @@ Hash tables tend to be faster when looking up items because you just index into 
 
 If hash tables outperform arrays, why use arrays at all?
 
-While the space complexity of both is generally O(n), you are still storing _more_ with a hashtable because it requires a key _and_ data, whereas, with an array, you just need to store the data. A hash table's key generation mechanism can also become complex (and therefore, expensive) to compute. Hence, if you don't need keyed access, just use an array!
+While the space complexity of both is generally O(n), you are still storing _more_ with a hashtable because it requires a key _and_ data, whereas, with an array, you just need to store the data. A hash table's key generation mechanism can also become complex (and therefore, computationally expensive). Hence, if you don't need keyed access, just use an array!
 
 ## Linked Lists
 
-A linked list is an  [abstract data structure](https://en.wikipedia.org/wiki/Abstract_data_type) that functions similarly to an array. However, its implementation is different. 
+A linked list is an  [abstract data structure](https://en.wikipedia.org/wiki/Abstract_data_type) that functions similarly to an array. However, its implementation is different because a linked list is created by linking data through memory references.
 
 Figure 1, below, shows single and double linked lists:
 
@@ -146,6 +148,13 @@ A stack has two main operations:
 2. `pop`, which removes the most recently added element from the top of the stack
 
 A singly linked list is an ideal data structure to implement a stack. When using a single linked list, the _head_ of the list functions as the _top_, which contains a reference to the _next_ element (if there is one), and `push` and `pop` modify that head. Consequently, stacks are super efficient because most operations are O(1) in time.
+
+When you use your computer, you are _probably_ using stacks all the time!
+
++ [Memory allocation](https://en.wikipedia.org/wiki/Stack-based_memory_allocation)
++ [Call stack](https://en.wikipedia.org/wiki/Call_stack)
+
+And how about those forward and back buttons on your browser?
 
 ## Queues
 
