@@ -2,6 +2,20 @@
 
 Data structures are the foundation upon which you build your code. So a good understanding of data structures is important.
 
+## Learning Objectives
+
+- Understand some advanced data structures (beyond arrays and objects)
+- Understand the time and space complexity (Big O) of some advanced data structures
+- Understand hash tables
+- Understand linked lists
+- Implement linked lists in the form of stacks and queues
+
+There is also an extended learning objective:
+
+- Understand binary search trees
+
+## Introduction
+
 So far, the main [data types and data structures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) you have been working with are the primitive types (such as booleans, numbers and strings), objects, arrays, and arrays of objects. You've also used [JSON](https://www.json.org/json-en.html), a structured data type that is commonly used for exchanging data between client and server (indeed, that's how you've used it).
 
 However, native Javascript also includes some [keyed types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections), which we'll look at in the form of hash tables, below. We'll also look at [linked lists](https://en.wikipedia.org/wiki/Linked_list), and we'll use linked lists to create other data types, such as [stacks](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) and [queues](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)).
@@ -24,7 +38,6 @@ contacts.delete('Nathan') // true
 console.log(contacts.size) // 1
 ```
 
-
 A Map does not allow duplicate keys. Hence:
 
 ```js
@@ -42,13 +55,20 @@ contacts.set(myId, {phone: "0123 456789", address: "123 Easy Street"});
 contacts.get(myId) // {phone: "0123 456789", address: "123 Easy Street"}
 ```
 
-In general, hash tables have constant time complexity:
+### Hash Tables vs Arrays
 
-1. Insert - O(1)
-2. Lookup - O(1)
-3. Delete - O(1). That's because a hash table is an unordered list, so unlike arrays, you do not need to shift all the elements
+Hash tables tend to be faster when looking up items because you just index into the hash table with a key, whereas, with an array, you have to loop over everything. Inserting an item is also generally faster in Hash tables. So is deletion, since a hash table is just an unordered list, so unlike arrays, you never need to shift any of the elements. In general, we have the following time complexity:
 
-The space complexity for Hash Tables is O(n), where n is the number of keys.
+| Hash Tables | Arrays      |
+| ------------| ------------|
+| Search O(n) | Search O(n) |
+| Lookup O(1) | Lookup O(1) |
+| Insert O(1) | Insert O(n) |
+| Delete O(1) | Delete O(n) |
+
+If hash tables outperform arrays, why use arrays at all?
+
+While the space complexity of both is generally O(n), you are still storing _more_ with a hashtable because it requires a key _and_ data, whereas, with an array, you just need to store the data. A hash table's key generation mechanism can also become complex (and therefore, expensive) to compute. Hence, if you don't need keyed access, just use an array!
 
 ## Linked Lists
 
@@ -178,4 +198,3 @@ Hence, a binary search tree (BST) is also called an ordered or sorted binary tre
 ## Extension Exercise
 
 A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice recursive solutions to both of those functions - can you find them?
-
