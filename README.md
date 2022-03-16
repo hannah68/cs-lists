@@ -182,7 +182,7 @@ A doubly linked list has O(1) insertion and deletion at both ends, so it is a na
 
 ## Extension - Binary Search Trees
 
-A tree is a collection of nodes connected by some edges. It is a non linear data structure.
+A tree is a collection of nodes connected by references ([edges](https://mathinsight.org/definition/network_edge), in maths terms).
 
 Figure 4 shows that we have been working with a tree data structure since day 1 of this course!
 
