@@ -1,111 +1,182 @@
-# Data Structures & Algorithms: Queues, Stacks & Linked Lists
+# Data Structures and Algorithms
 
-## Instructions
+Data structures are the foundation upon which you build your code. So a good understanding of data structures is important.
 
-There are three sections to this repo:
+So far, the main [data types and data structures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) you have been working with are the primitive types (such as booleans, numbers and strings), objects, arrays, and arrays of objects. You've also used [JSON](https://www.json.org/json-en.html), a structured data type that is commonly used for exchanging data between client and server (indeed, that's how you've used it).
 
-- Queues
-- Stacks
-- Linked List
+However, native Javascript also includes some [keyed types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections), which we'll look at in the form of hash tables, below. We'll also look at [linked lists](https://en.wikipedia.org/wiki/Linked_list), and we'll use linked lists to create other data types, such as [stacks](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) and [queues](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)).
 
-Each section has a test file to guide you towards writing code for each data structure.
+## Hash Tables
 
-For the **Queue** and **Stack** section there are two parts, the first part uses an array and the second part uses a linked list.
+Hash tables are a data structure where you use a key to store a value. Afterwards, you can use that key to retrieve the value.
 
-For the **Linked List** section you have a `Node` file that you will use to create nodes for your linked lists.
+Javascript has a native type for hash tables - the [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). A Map is similar to an [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), in that both let you set keys to values, retrieve those values, delete keys, and later, find whether something is stored at a key.
 
-## Getting Started
+```js
+const contacts = new Map()
+contacts.set('Steve', {phone: "0123 456789", address: "123 Easy Street"})
+contacts.has('Steve') // true
+contacts.get('Nathan') // undefined
+contacts.set('Nathan', {phone: "0987 654321", address: "321 Hard Life"})
+contacts.get('Steve') // {phone: "0123 456789", address: "123 Easy Street"}
+contacts.delete('Ed') // false
+contacts.delete('Nathan') // true
+console.log(contacts.size) // 1
+```
 
-Fork and clone the repo.
+Javascript only introduced the Map (and the [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)) in 2015 (with ES6), so historically, Objects have predominated. However, there are [important differences between the two](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#objects_vs._maps), not least that a Map allows you to use _any_ value as a key, whereas an Object only allows a String; hence, in _some_ cases, a Map may be more appropriate.  
 
-And run the following commands to get started:
+A Map does not allow duplicate keys. Hence:
 
-`npm install`
+```js
+contacts.set('Steve', {phone: "0123 456789", address: "123 Easy Street"})
+contacts.set('Steve', 'This will get overwritten with a new address')
+contacts.set('Steve', {phone: "0456 987321", address: "321 A Tougher Road"})
+```
 
-`npm test`
+And because keys muct be unique, it is common to using a hashing algorithm (or a node package, such as [uuid](https://github.com/uuidjs/uuid)), to generate unique keys for you:
 
-## Queues
+```js
+import { v4 as uuidv4 } from 'uuid';
+const myId = uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+contacts.set(myId, {phone: "0123 456789", address: "123 Easy Street"});
+contacts.get(myId) // {phone: "0123 456789", address: "123 Easy Street"}
+```
 
-If you join the queue first, you will be the first one to leave the queue.
+In general, hash tables have the following time complexity:
 
-The diagram below demonstrates a queue with an `array`.
+1. Insert - O(1)
+2. Lookup - O(1)
+3. Delete - O(1). That's because a hash table is an unordered list, so unlike arrays, you do not need to shift all the elements
 
-![Queue Diagram](./assets/queue-diagram.png)
-
-## Stacks
-
-Imagine a stack of plates, the last one you put on will be the first one you take off.
-
-The diagram below demonstrates a stack with an `array`.
-
-![Stack Diagram](./assets/stack-diagram.png)
-
-### Other Examples
-
-- The Tower of Hanoi Game, link [here](https://www.mathsisfun.com/games/towerofhanoi.html)
+The space complexity for Hash Tables is O(n), where n is the number of keys.
 
 ## Linked Lists
 
-When we create a linked list, we use nodes to store a `value` and a `pointer`.
+A linked list is an  [abstract data structure](https://en.wikipedia.org/wiki/Abstract_data_type) that functions similarly to an array. However, its implementation is different. 
 
-The `value` stores the data we want to keep track of.
+Figure 1, below, shows single and double linked lists:
 
-The `pointer` stores a reference to the next node with another value.
+![](assets/linkedLists.jpeg)
 
-A linked list has three properties:
+_Figure 1: Linked lists_
 
-- The `head` which is the entry point to our list.
-- The `tail` which keeps track of the end of our list.
-- The `length` which keeps track of the length of our list.
+Below, we'll create a simple, single linked list. We'll also see a single linked list when looking at stacks, below. We'll look at double linked lists when discussing queues.
 
-![Single Linked List Diagram](./assets/single-linked-list-diagram.png)
-
-### Empty Linked List
-
-This is what a linked list looks like when it is empty.
+With a linked list, a _node_ stores both data and references to other data:
 
 ```js
-const emptyList = {
-  head: undefined,
-  tail: undefined,
-  length: 0,
+const makeNode = (value) => {
+  return {
+    data: value,
+    next: null
+  }
 }
 ```
 
-### Linked List with one value
-
-When we add a single value, it is stored in the `head` and `tail` properties.
-
-The value of the `head` and `tail` properties are storing a reference to the same object in memory because **objects are passed by reference** rather than by value.
-
-If you assign a new value to the `next` property of the node in `tail` the object will update in "both" places.
+Let's write a function that creates a list that counts down from a value we pass to that function:
 
 ```js
-const list = {
-  head: { value: 1, next: null }, // <= This object is the same as...
-  tail: { value: 1, next: null }, // <= ...this object in memory.
-  length: 1,
+const makeCountDown = (from) => {
+  let priorNode = makeNode(from);
+  const head = priorNode;
+  for (let i = priorNode.data - 1; i > 0; i--) {
+    const newNode = makeNode(i);
+    priorNode.next = newNode;
+    priorNode = newNode;
+  }
+  return head;
+};
+```
+
+In essence, `makeCountDown` shows that, first, we create the nodes that hold the data, then we link each node by pointing their `next` reference at the following node. Visually:
+
+`10 -> 9 -> 8 -> 7 -> 6 -> 5 -> 4 -> 3 -> 2 -> 1`
+
+Now, if we want to print the list, we just need to traverse the _next_ references:
+
+```js
+const printList = (head) => {
+  // Start at the head
+  let current = head;
+
+  // As long as `current` isn't null, print out the value
+  while(current) {
+    console.log(current.data);
+
+    // Advance to the next node in the list by replacing
+    // current with whatever `next` points to
+    current = current.next;
+  }
 }
 ```
 
-### Linked List with three values
+Conceptually, that's all there is to linked lists! However, linked lists act as the foundation for more sophisticated data structures, such as stacks and queues, because linked lists perform better than arrays when adding and deleting data. We'll look at stacks and queues, next.
 
-When we add multiple values, the `head` property continues to grow and the `tail` property is updated to point to the last node in the list.
+## Stacks
 
-The third node in the `head` property and the `tail` propertiy are storing a reference to the same object in memory because **objects are passed by reference** rather than by value.
+A stack is a _last in, lirst out_ (LIFO) data type that behaves similarly to a stack of plates (or the [The Tower of Hanoi](https://www.mathsisfun.com/games/towerofhanoi.html)), because, as shown in Figure 2, adding or removing is only possible at the top.
 
-If you assign a new value to the `next` property of the node in `tail` the object will update in "both" places.
+![](stack.png)
 
-```js
-const list = {
-  head: {
-    value: 1,
-    next: {
-      value: 2,
-      next: { value: 3, next: null }, // <= This object is the same as...
-    },
-  },
-  tail: { value: 3, next: null }, // <= ...this object in memory.
-  length: 3,
-}
-```
+_Figure 2: A stack_
+
+A stack has two main operations:
+
+1. `push`, which adds an element to the top of the collection
+2. `pop`, which removes the most recently added element from the top
+
+A singly linked list is an ideal data structure to implemet a stack. When using a single linked list, the _head_ of the list functions as the _top_, which contains a reference to the _next_ element (if there is one), and `push` and `pop` modify that head. Consequently, stacks are super efficient because most operations are O(1) in time.
+
+## Queues
+
+A queue is a _first in, first out_ (FIFO) data type that behaves similarly to your average post office, as shown in Figure 3 - if you join the queue first, you will be the first one to be served and leave the queue.
+
+![](./assets/queue.png)
+
+_Figure 3: A queue_
+
+A queue has two main operations:
+
+1. `enqueue`, which adds an element to the end (tail) of the collection
+2. `dequeue`, which removes an element from the front (head) of the collection
+
+A doubly linked list has O(1) insertion and deletion at both ends, so it is a natural choice for queues.
+
+## Exercise
+
+1. Fork this repository and clone the fork to your machine.
+2. Run `npm ci` to install project dependencies
+3. Implement each of the empty functions inside the files in the [src](./src) directory
+    - Add a commment to each function implementation that describes:
+        1. Conceptually, how the algorithm works. You _may_ wish to write this _first_, then try and implement your conceptual understanding
+4. Run `npm run test` to test your code.
+
+## Extension - Binary Search Trees
+
+A tree is a collection of nodes connected by some edges. It is a non linear data structure. 
+
+Figure 4 shows that we have been working with a tree data structure since day 1 of this course:
+
+![](./assets/DOMTree.png)
+
+_Figure 4: The DOM tree_
+
+A binary tree is a special kind of tree data structure, shown in Figure 5, below, in which each node has at most two children, which are referred to as the left child and the right child.
+
+![](./assets/binaryTree.png)
+
+_Figure 5: A binary tree_
+
+A Binary Search tree, shown in Firgure 6, is a special kind of binary tree in which nodes that have lesser value are stored on the left child, while the nodes with a higher value are stored at the right child.
+
+![](./assets/binaryTree.png)
+
+_Figure 6: A binary search tree_
+
+Hence, a binary search tree (BST) is also called an ordered or sorted binary tree, because it is a rooted binary tree data structure whereby each root node stores a key greater than all the keys in the node's left subtree and less than those in its right subtree.
+
+## Extension Exercise
+
+A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice recursive solutions to both of those funcitons - can you find them?
+
