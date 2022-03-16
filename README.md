@@ -10,7 +10,7 @@ However, native Javascript also includes some [keyed types](https://developer.mo
 
 Hash tables are a data structure where you use a key to store a value. Afterwards, you can use that key to retrieve the value.
 
-Javascript has a native type for hash tables - the [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). A Map is similar to an [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), in that both let you set keys to values, retrieve those values, delete keys, and later, find whether something is stored at a key.
+Javascript has a native type for hash tables - the [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). A Map is similar to an [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), in that both let you set keys to values, retrieve those values, delete keys, and later, find whether something is stored at a key. Javascript only introduced the Map (and the [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)) in 2015 (with ES6), so historically, Objects have predominated. However, there are [important differences between the two](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#objects_vs._maps), not least that a Map allows you to use _any_ value as a key, whereas an Object only allows a String; hence, in _some_ cases, a Map may be more appropriate.  
 
 ```js
 const contacts = new Map()
@@ -24,7 +24,6 @@ contacts.delete('Nathan') // true
 console.log(contacts.size) // 1
 ```
 
-Javascript only introduced the Map (and the [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)) in 2015 (with ES6), so historically, Objects have predominated. However, there are [important differences between the two](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#objects_vs._maps), not least that a Map allows you to use _any_ value as a key, whereas an Object only allows a String; hence, in _some_ cases, a Map may be more appropriate.  
 
 A Map does not allow duplicate keys. Hence:
 
@@ -43,7 +42,7 @@ contacts.set(myId, {phone: "0123 456789", address: "123 Easy Street"});
 contacts.get(myId) // {phone: "0123 456789", address: "123 Easy Street"}
 ```
 
-In general, hash tables have the following time complexity:
+In general, hash tables have constant time complexity:
 
 1. Insert - O(1)
 2. Lookup - O(1)
@@ -61,9 +60,9 @@ Figure 1, below, shows single and double linked lists:
 
 _Figure 1: Linked lists_
 
-Below, we'll create a simple, single linked list. We'll also see a single linked list when looking at stacks, below. We'll look at double linked lists when discussing queues.
+Below, we'll create a very simple, single linked list. We'll see a more complex examples of a single linked list when looking at stacks, below. We'll look at double linked lists when discussing queues.
 
-With a linked list, a _node_ stores both data and references to other data:
+With a linked list, a _node_ stores both data and a reference to more data:
 
 ```js
 const makeNode = (value) => {
@@ -74,7 +73,7 @@ const makeNode = (value) => {
 }
 ```
 
-Let's write a function that creates a list that counts down from a value we pass to that function:
+Let's write a function that creates a list that counts down from a value:
 
 ```js
 const makeCountDown = (from) => {
@@ -89,7 +88,7 @@ const makeCountDown = (from) => {
 };
 ```
 
-In essence, `makeCountDown` shows that, first, we create the nodes that hold the data, then we link each node by pointing their `next` reference at the following node. Visually:
+In essence, `makeCountDown` shows that, first, we create a node to hold some data, then we create a list by linking each node to another by updating their `next` reference. Visually:
 
 `10 -> 9 -> 8 -> 7 -> 6 -> 5 -> 4 -> 3 -> 2 -> 1`
 
@@ -111,22 +110,22 @@ const printList = (head) => {
 }
 ```
 
-Conceptually, that's all there is to linked lists! However, linked lists act as the foundation for more sophisticated data structures, such as stacks and queues, because linked lists perform better than arrays when adding and deleting data. We'll look at stacks and queues, next.
+Conceptually, that's all there is to linked lists! However, linked lists act as the foundation for more sophisticated data structures, such as stacks and queues, because linked lists can perform better than arrays when adding and deleting data. We'll look at stacks and queues, next.
 
 ## Stacks
 
 A stack is a _last in, lirst out_ (LIFO) data type that behaves similarly to a stack of plates (or the [The Tower of Hanoi](https://www.mathsisfun.com/games/towerofhanoi.html)), because, as shown in Figure 2, adding or removing is only possible at the top.
 
-![](stack.png)
+![](assets/stack.png)
 
 _Figure 2: A stack_
 
 A stack has two main operations:
 
-1. `push`, which adds an element to the top of the collection
-2. `pop`, which removes the most recently added element from the top
+1. `push`, which adds an element to the top of the stack
+2. `pop`, which removes the most recently added element from the top of the stack
 
-A singly linked list is an ideal data structure to implemet a stack. When using a single linked list, the _head_ of the list functions as the _top_, which contains a reference to the _next_ element (if there is one), and `push` and `pop` modify that head. Consequently, stacks are super efficient because most operations are O(1) in time.
+A singly linked list is an ideal data structure to implement a stack. When using a single linked list, the _head_ of the list functions as the _top_, which contains a reference to the _next_ element (if there is one), and `push` and `pop` modify that head. Consequently, stacks are super efficient because most operations are O(1) in time.
 
 ## Queues
 
@@ -154,15 +153,15 @@ A doubly linked list has O(1) insertion and deletion at both ends, so it is a na
 
 ## Extension - Binary Search Trees
 
-A tree is a collection of nodes connected by some edges. It is a non linear data structure. 
+A tree is a collection of nodes connected by some edges. It is a non linear data structure.
 
-Figure 4 shows that we have been working with a tree data structure since day 1 of this course:
+Figure 4 shows that we have been working with a tree data structure since day 1 of this course!
 
 ![](./assets/DOMTree.png)
 
 _Figure 4: The DOM tree_
 
-A binary tree is a special kind of tree data structure, shown in Figure 5, below, in which each node has at most two children, which are referred to as the left child and the right child.
+A binary tree is a special kind of tree data structure, shown in Figure 5, in which each node has at most two children (the left child and the right child).
 
 ![](./assets/binaryTree.png)
 
@@ -170,7 +169,7 @@ _Figure 5: A binary tree_
 
 A Binary Search tree, shown in Firgure 6, is a special kind of binary tree in which nodes that have lesser value are stored on the left child, while the nodes with a higher value are stored at the right child.
 
-![](./assets/binaryTree.png)
+![](assets/binarySearchTree.png)
 
 _Figure 6: A binary search tree_
 
@@ -178,5 +177,5 @@ Hence, a binary search tree (BST) is also called an ordered or sorted binary tre
 
 ## Extension Exercise
 
-A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice recursive solutions to both of those funcitons - can you find them?
+A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice recursive solutions to both of those functions - can you find them?
 
