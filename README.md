@@ -198,13 +198,13 @@ A binary tree is a special kind of tree data structure, shown in Figure 5, in wh
 
 _Figure 5: A binary tree_
 
-A Binary Search tree, shown in Firgure 6, is a special kind of binary tree in which nodes that have lesser value are stored on the left child, while the nodes with a higher value are stored at the right child.
+A binary Search tree, shown in Firgure 6, is a special kind of binary tree in which nodes that have lesser value are stored on the left child, while the nodes with a higher value are stored at the right child.
 
 ![](assets/binarySearchTree.png)
 
 _Figure 6: A binary search tree_
 
-Hence, a binary search tree (BST) is also called an ordered or sorted binary tree, because it is a rooted binary tree data structure whereby each root node stores a key greater than all the keys in the node's left subtree and less than those in its right subtree.
+Hence, a binary search tree is also called an ordered or sorted binary tree, because it is a rooted binary tree data structure whereby each root node stores a key greater than all the keys in the node's left subtree and less than those in its right subtree.
 
 ## Extension Exercise
 
