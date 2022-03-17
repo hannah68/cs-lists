@@ -118,7 +118,7 @@ const makeCountDown = (from) => {
 };
 ```
 
-In essence, `makeCountDown` shows that, first, we create a node to hold some data, then we create a list by linking each node to another by updating their `next` reference. Visually:
+`makeCountDown` shows the general approach for creating a linked list - first, we create a node to hold some data, then we form the list by linking that node to another by updating their `next` reference. Visually:
 
 `10 -> 9 -> 8 -> 7 -> 6 -> 5 -> 4 -> 3 -> 2 -> 1`
 
