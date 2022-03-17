@@ -140,7 +140,7 @@ const printList = (head) => {
 }
 ```
 
-Conceptually, that's all there is to linked lists! However, linked lists act as the foundation for more sophisticated data structures, such as stacks and queues, because linked lists can perform better than arrays when adding and deleting data. We'll look at stacks and queues, next.
+Conceptually, that's all there is to linked lists! However, linked lists act as the foundation for more sophisticated data structures, such as stacks and queues, which can perform better than arrays when adding and deleting data. We'll look at stacks and queues, next.
 
 ## Stacks
 
