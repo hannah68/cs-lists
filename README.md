@@ -61,12 +61,12 @@ Hash tables tend to be faster when looking up items because you just index into 
 
 In general, we have the following time complexity for hash tables and arrays:
 
-| Hash Tables | Arrays      |
-| ------------| ------------|
-| Search O(n) | Search O(n) |
-| Lookup O(1) | Lookup O(1) |
-| Insert O(1) | Insert O(n) |
-| Delete O(1) | Delete O(n) |
+| Hash Tables | Arrays      | Sorted Arrays   |
+| ------------| ------------| ----------------|
+| Search O(n) | Search O(n) | Search O(log n) |
+| Lookup O(1) | Lookup O(n) | Lookup O(1)     |
+| Insert O(1) | Insert O(1) | Insert O(n)     |
+| Delete O(1) | Delete O(n) | Delete O(n)     |
 
 If hash tables outperform arrays, why use arrays at all?
 
@@ -209,3 +209,5 @@ Hence, a binary search tree is also called an ordered or sorted binary tree, bec
 ## Extension Exercise
 
 A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice recursive solutions to both of those functions - can you find them?
+
+For the record - the _search_ and _insert_ time complexities of a binary search tree are closely related to how many branches the tree contains (is height, or depth). It turns out that the average height of a binary search tree has space complexity of O(log n). Hence, it follows that the average number of comparisons needed to search a binary search tree is also O(log n) (which is the same complexity as that for binary search of a sorted array). However, inserting a new node also has time complexity of O(log n), which is better than the O(n) complexity of inserting an item into a sorted array.
