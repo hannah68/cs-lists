@@ -26,6 +26,14 @@ Hash tables are a data structure where you use a key to store a value. Afterward
 
 Javascript has a native type for hash tables - the [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). A Map is similar to an [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), in that both let you set keys to values, retrieve those values, delete keys, and later, find whether something is stored at a key. Javascript only introduced the Map (and the [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)) in 2015 (with ES6), so historically, Objects have predominated. However, there are [important differences between the two](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#objects_vs._maps), not least that a Map allows you to use _any_ value as a key, whereas an Object only allows a String; hence, in _some_ cases, a Map may be more appropriate.  
 
+A javascript Map has the following main operations:
+
+1. `set`, which adds an element
+2. `get`, which fetches an element
+3. `delete`, which removes an element
+4. `has`, which checks whether the given key has an associated value
+5. `size`, which reports the number of elements in the Map
+
 ```js
 const contacts = new Map()
 contacts.set('Steve', {phone: "0123 456789", address: "123 Easy Street"})
@@ -68,7 +76,7 @@ In general, we have the following time complexity for hash tables and arrays:
 | Insert O(1) | Insert O(1) | Insert O(n)     |
 | Delete O(1) | Delete O(n) | Delete O(n)     |
 
-If hash tables outperform arrays, why use arrays at all?
+If hash tables (generally) outperform arrays, why use arrays at all?
 
 While the space complexity of both is generally O(n), you are still storing _more_ with a hashtable because it requires a key _and_ data, whereas, with an array, you just need to store the data. A hash table's key generation mechanism can also become complex (and therefore, computationally expensive). Hence, if you don't need keyed access, just use an array!
 
@@ -208,6 +216,6 @@ Hence, a binary search tree is also called an ordered or sorted binary tree, bec
 
 ## Extension Exercise
 
-A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice recursive solutions to both of those functions - can you find them?
+A binary search tree is an advanced data structure, so most of the functions in this repos' included implementation, [src/bst.mjs](src/bst.mjs), have been written for you (the breadth first traversal shows a very nice example of a queue). However, two functions have been left for you to complete in order to make `npm run test` pass _everything_: `findMinimum` and `findMaximum` - there are very nice [recursive](https://www.cs.utah.edu/~germain/PPS/Topics/recursion.html) solutions to both of those functions - can you find them?
 
-For the record - the _search_ and _insert_ time complexities of a binary search tree are closely related to how many branches the tree contains (is height, or depth). It turns out that the average height of a binary search tree has space complexity of O(log n). Hence, it follows that the average number of comparisons needed to search a binary search tree is also O(log n) (which is the same complexity as that for binary search of a sorted array). However, inserting a new node also has time complexity of O(log n), which is better than the O(n) complexity of inserting an item into a sorted array.
+For the record - the _search_ and _insert_ time complexities of a binary search tree are closely related to how many branches the tree contains (is height, or depth). It turns out that the average height of a binary search tree has space complexity of O(log n). Hence, it follows that the average number of comparisons needed to search a binary search tree is also O(log n) (which is the same complexity as that for binary search of a sorted array). However, inserting a new node also has time complexity of O(log n), which is better than the O(n) complexity of inserting an item into a sorted array. Hence, for sorted data, a binary search tree _might_ be the correct option.
